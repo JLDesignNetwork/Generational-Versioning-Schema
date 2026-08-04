@@ -1,30 +1,26 @@
-# JLDN Generational Versioning Schema Specification
+# JLDN Generational Versioning Schema Specification (v2607.1.0-s)
 
-Welcome to the official specification repository for the **JLDN Generational Versioning Schema**.
-
-- **Master Specification File:** [gvs-2607.md](./gvs-2607.md)
-- **Author:** Jeff Langdon
-- **Schema Format:** `[YYMM].[SUBVERSION].[REVISION]-[TAG]`
+Welcome to the **JLDN Generational Versioning Schema Specification** (Generational Versioning Schema: `2607.1.0-s`).
 
 ## Overview
 
-The JLDN Generational Versioning Schema is a proprietary, generational standard designed to combine historical context, feature iteration, and precise lifecycle and support tracking into a single, chronologically sortable string.
+This repository contains the master specification for the proprietary **JLDN Generational Versioning Schema (GVS)** standard.
 
-### Format Structure
+* **Author:** Jeff Langdon (JL Design Network)
+* **Specification Version:** `2607.1.0-s` (Stable Release)
 
-`[YYMM].[SUBVERSION].[REVISION]-[TAG]`
+### Generation 2607 Workspace Layout
+- 📄 **[Specification Document](./2607/gvs.md):** `2607/gvs.md`
+- 📊 **[TODO Dataset](./2607/todo.json):** `2607/todo.json` (JLDN Todo Schema Mode 2)
+- 📝 **[Changelog](./2607/CHANGELOG.md):** `2607/CHANGELOG.md`
 
-* **`[YYMM]` (The Epoch):** 4-digit generational marker representing the 2-digit year and 2-digit zero-padded month when the core architecture of the software was born (e.g., `2607` for July 2026).
-* **`[SUBVERSION]`:** Incrementing integer tracking backward-compatible feature additions or architectural expansions.
-* **`[REVISION]`:** Incrementing integer tracking bug fixes and security patches.
-* **`-[TAG]`:** Compound lifecycle tag (`-a`, `-as`, `-b`, `-bs`, `-l`, `-s`, `-ts`, `-z`).
+## Core Features
 
-## Regular Expression Validation
+- **Format Structure:** `[YYMM].[SUBVERSION].[REVISION]-[TAG]`
+- **Epoch Identifier:** Four-digit year/month architecture origin marker (`2607`).
+- **Alphabetically Sortable Greek Tags:** `alpha`, `beta`, `rc`, `s`, `lts`, `dep`.
+- **Support Modifiers:** Explicit active external support tag modifiers (`s`).
 
-```regex
-^(\d{2}(?:0[1-9]|1[0-2]))\.(\d+)\.(\d+)-(a|as|b|bs|l|s|ts|z)$
-```
-
-## License
+## License & Attribution
 
 Designed and maintained by Jeff Langdon / JL Design Network. All rights reserved.

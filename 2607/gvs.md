@@ -3,11 +3,13 @@
   "metadata": {
     "author": "Jeff Langdon",
     "rulesetName": "Generational Versioning Schema",
-    "version": "2607.1.0-s"
-  },
-  "todo": []
+    "version": "2607.1.0-s",
+    "todo_file": "todo.json",
+    "changelog_file": "CHANGELOG.md"
+  }
 }
 ---
+
 
 # JLDN Generational Versioning Schema Specification
 
