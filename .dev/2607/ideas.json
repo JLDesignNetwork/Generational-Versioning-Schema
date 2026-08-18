@@ -1,0 +1,16 @@
+[
+  {
+    "id": "PROJ-IDEA-01",
+    "title": "Standalone GVS CLI Tool",
+    "status": "pending",
+    "details": "Develop a lightweight CLI utility (`gvs`) for evaluating, comparing, bumping, and validating GVS version strings in shell scripts and GitHub Actions.",
+    "created_at": "2026-08-18T16:55:00+02:00"
+  },
+  {
+    "id": "PROJ-IDEA-02",
+    "title": "GVS Semver Migration Bridge Utility",
+    "status": "pending",
+    "details": "Create a translator script converting standard SemVer strings to GVS tags based on project git commit dates.",
+    "created_at": "2026-08-18T16:55:00+02:00"
+  }
+]

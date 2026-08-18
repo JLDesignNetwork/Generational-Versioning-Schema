@@ -1,22 +1,11 @@
----
-{
-  "metadata": {
-    "author": "Jeff Langdon",
-    "rulesetName": "Generational Versioning Schema",
-    "version": "2607.1.0-s",
-    "todo_file": "todo.json",
-    "changelog_file": "CHANGELOG.md"
-  }
-}
----
-
-
 # JLDN Generational Versioning Schema Specification
 
-**Author:** Jeff Langdon  
-**Ruleset / Schema:** JLDN Generational Versioning Format
+> **Document:** `docs/specification.md`  
+> **Author:** Jeff Langdon (JL Design Network)  
+> **Ruleset / Schema:** JLDN Generational Versioning Format  
+> **Version:** `2607.2.0-s`  
 
-This document outlines the official specification for the JLDN versioning format. This schema is a proprietary, generational standard designed to combine historical context, feature iteration, and precise lifecycle and support tracking into a single, chronologically sortable string.
+This document defines the official specification for the **JLDN Generational Versioning Schema (GVS)**. Designed as a proprietary, generational standard, this schema combines architectural historical context, feature iteration, and precise lifecycle and support tracking into a single, chronologically sortable string.
 
 ---
 
@@ -69,11 +58,7 @@ To ensure data integrity across CI/CD pipelines, ingestion engines, and automate
 
 ---
 
-## 4. Changelog Implementation Guidelines
+## 4. Subversion Milestones vs. Revision Bumps
 
-When utilizing the JLDN format within project changelogs, structure the document to emphasize the Generational Epoch:
-
-* **Group by Generation:** Utilize the `[YYMM]` Epoch as the primary top-level heading (e.g., `"Generation 2607"`). All subversions and revisions fall beneath their respective Epoch.
-* **Chronological Sorting:** List entries in descending chronological order (newest at the top). Because the tags sort natively (`-a` to `-z`), an ascending script will naturally order the lifecycle chronologically, but human-readable changelogs should display the highest/newest iteration first.
-* **Explicit Support Indicators:** Next to the version heading, explicitly state the phase and support status derived from the tag (e.g., `"2607.1.2-s (Stable / Supported)"`).
-* **Zero-Hour Documentation:** When a `-z` release is published, the changelog entry must include explicit migration paths to the next Generational Epoch.
+- **Subversion Milestones (`[YYMM].[SUBVERSION].0-[TAG]`):** Triggered on new features, rule mechanics, or architectural expansions. Requires an annotated Git tag AND a formal published GitHub/GitLab release.
+- **Revision Bumps (`[YYMM].[SUBVERSION].[REVISION]-[TAG]` where `REVISION > 0`):** Triggered on minor bug fixes, typo corrections, or formatting tweaks. Requires an annotated Git tag ONLY (no public release published).

@@ -1,0 +1,23 @@
+name: "GVS Proposal"
+description: "Propose a new lifecycle modifier, format position, or CI integration tooling."
+title: "[PROPOSAL]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting a proposal for GVS!
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem & Motivation
+      description: What lifecycle state or workflow limitation does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Detailed Proposal
+      description: Describe the proposed modification and its impact on alphabetical sorting and regex matching.
+    validations:
+      required: true

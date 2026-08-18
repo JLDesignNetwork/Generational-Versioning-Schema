@@ -1,0 +1,89 @@
+name: "CI Quality Gate"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: GVS Regex & JSON Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate JSON Datasets
+        run: |
+          python3 -c "
+          import json, glob, sys
+          has_error = False
+          for f in glob.glob('**/*.json', recursive=True):
+              try:
+                  with open(f, 'r', encoding='utf-8') as fh:
+                      json.load(fh)
+                  print(f'✅ Valid JSON: {f}')
+              except Exception as e:
+                  print(f'❌ Invalid JSON: {f} -> {e}', file=sys.stderr)
+                  has_error = True
+          if has_error:
+              sys.exit(1)
+          "
+
+      - name: Execute GVS Regular Expression Test Suite
+        run: |
+          python3 -c "
+          import re, sys
+          GVS_PATTERN = re.compile(r'^(\d{2}(?:0[1-9]|1[0-2]))\.(\d+)\.(\d+)-(a|as|b|bs|l|s|ts|z)$')
+          
+          positive_cases = [
+              '2607.1.0-s', '2607.2.0-s', '2608.18.0-as', '2605.4.3-bs',
+              '2601.0.0-a', '2612.99.100-z', '2606.1.0-l', '2606.1.0-ts', '2606.1.0-b'
+          ]
+          
+          negative_cases = [
+              '2613.1.0-s',      # Invalid month (13)
+              '2600.1.0-s',      # Invalid month (00)
+              '2607.1-s',        # Missing revision
+              '2607.1.0',        # Missing tag
+              '2607.1.0-invalid',# Invalid tag name
+              '2607.1.0-rc',     # Non-Greek tag
+              'v2607.1.0-s',     # Leading 'v' (clean GVS has no prefix)
+              ' 2607.1.0-s ',    # Leading/trailing whitespace
+          ]
+          
+          errors = 0
+          for case in positive_cases:
+              if not GVS_PATTERN.match(case):
+                  print(f'❌ False Negative: {case} should have matched GVS regex', file=sys.stderr)
+                  errors += 1
+              else:
+                  print(f'✅ Correctly Matched: {case}')
+                  
+          for case in negative_cases:
+              if GVS_PATTERN.match(case):
+                  print(f'❌ False Positive: {case} should NOT have matched GVS regex', file=sys.stderr)
+                  errors += 1
+              else:
+                  print(f'✅ Correctly Rejected: {case}')
+                  
+          if errors > 0:
+              print(f'Total Failures: {errors}', file=sys.stderr)
+              sys.exit(1)
+          print('🎉 All GVS regular expression unit tests passed!')
+          "

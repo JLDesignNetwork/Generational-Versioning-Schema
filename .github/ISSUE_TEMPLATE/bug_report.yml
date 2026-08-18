@@ -1,0 +1,30 @@
+name: "Specification Defect Report"
+description: "File a defect or regular expression bug in the Generational Versioning Schema."
+title: "[BUG]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue with the GVS specification!
+  - type: input
+    id: version
+    attributes:
+      label: GVS Version
+      description: What version of the GVS specification are you referencing?
+      placeholder: 2607.2.0-s
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Defect Description
+      description: A clear description of the flaw or regex edge case.
+    validations:
+      required: true
+  - type: textarea
+    id: sample
+    attributes:
+      label: Sample Version String
+      description: Provide the version string that failed or unexpectedly matched.
+      render: shell
